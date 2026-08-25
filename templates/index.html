@@ -1,1 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Cursos - CESDE (API REST)</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --comfama-magenta: #B20E52;
+            --comfama-pink: #FF277E;
+            --comfama-dark: #2C2C2C;
+            --comfama-bg: #F9F6F0;
+            --accent-orange: #FF6B35;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        body {
+            background-color: var(--comfama-bg);
+            color: var(--comfama-dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(178, 14, 82, 0.08);
+            overflow: hidden;
+            border-top: 6px solid var(--comfama-magenta);
+        }
+        .header {
+            background: linear-gradient(135deg, var(--comfama-magenta), var(--comfama-pink));
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .header p {
+            font-size: 1.05rem;
+            opacity: 0.95;
+        }
+        .content {
+            padding: 40px;
+        }
+        .section-title {
+            font-size: 1.25rem;
+            color: var(--comfama-magenta);
+            margin-bottom: 20px;
+            font-weight: 600;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: #fff;
+            border: 1px solid #eaeaea;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: var(--comfama-pink);
+            box-shadow: 0 8px 20px rgba(178, 14, 82, 0.1);
+        }
+        .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--comfama-dark);
+        }
+        .card p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .badge.get { background: #E3F2FD; color: #1976D2; }
+        .badge.post { background: #E8F5E9; color: #388E3C; }
+        .badge.put { background: #FFF3E0; color: #F57C00; }
+        .badge.delete { background: #FFEBEE; color: #D32F2F; }
 
+        .btn {
+            display: inline-block;
+            background: var(--comfama-magenta);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .btn:hover {
+            background: var(--comfama-pink);
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #fdfbf7;
+            font-size: 0.85rem;
+            color: #888;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>CESDE &middot; Gestión de Cursos</h1>
+            <p>Prueba Técnica Desarrollador Backend (Python / Flask / SQLite)</p>
+        </div>
+        <div class="content">
+            <div class="section-title">Endpoints de Docentes</div>
+            <div class="grid">
+                <div class="card">
+                    <span class="badge get">GET</span>
+                    <h3>Listar Docentes</h3>
+                    <p>Obtiene el listado completo de instructores registrados.</p>
+                    <a href="/api/docentes" target="_blank" class="btn">Probar Endpoint</a>
+                </div>
+                <div class="card">
+                    <span class="badge post">POST</span>
+                    <h3>Crear Docente</h3>
+                    <p>Registra un nuevo docente (JSON body requerido).</p>
+                    <a href="/api/docentes" class="btn" style="background:#555; pointer-events:none;">Usar Postman / curl</a>
+                </div>
+            </div>
+
+            <div class="section-title">Endpoints de Cursos</div>
+            <div class="grid">
+                <div class="card">
+                    <span class="badge get">GET</span>
+                    <h3>Listar Cursos</h3>
+                    <p>Muestra todos los cursos con su respectivo docente asociado.</p>
+                    <a href="/api/cursos" target="_blank" class="btn">Probar Endpoint</a>
+                </div>
+                <div class="card">
+                    <span class="badge get">GET</span>
+                    <h3>Filtro por Nombre</h3>
+                    <p>Búsqueda parcial de cursos por nombre (?nombre=...).</p>
+                    <a href="/api/cursos/filtrar/nombre?nombre=Desarrollo" target="_blank" class="btn">Probar Filtro</a>
+                </div>
+                <div class="card">
+                    <span class="badge get">GET</span>
+                    <h3>Filtro por Precio Máximo</h3>
+                    <p>Cursos con valor menor o igual al especificado (?max=...).</p>
+                    <a href="/api/cursos/filtrar/precio?max=500000" target="_blank" class="btn">Probar Filtro</a>
+                </div>
+                <div class="card">
+                    <span class="badge get">GET</span>
+                    <h3>Filtro por Docente</h3>
+                    <p>Cursos dictados por número de documento (?documento=...).</p>
+                    <a href="/api/cursos/filtrar/docente?documento=1020304050" target="_blank" class="btn">Probar Filtro</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            Diseñado con identidad visual inspirada en Comfama &bull; Ejecutándose localmente en Fedora Linux
+        </div>
+    </div>
+</body>
+</html>
